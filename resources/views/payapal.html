@@ -1,0 +1,113 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+	
+	<style>
+	html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+	}
+	.container {
+	  height: 600px;
+	  position: relative;
+	  border: 1px solid green;
+	}
+
+	.vertical-center {
+	  margin: 0;
+	  position: absolute;
+	  top: 50%;
+	  left: 17%;
+	  -ms-transform: translateY(-50%);
+	  transform: translateY(-50%);
+	}
+</style>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="vertical-center">
+			<button id="paypal-button"></button>
+		</div>
+	</div>
+</body>
+
+<script>
+$( document ).ready(function() {
+const AMOUNT=10;
+const CURRENCY='USD';
+ paypal.Button.render({
+    
+                env: 'sandbox', // sandbox | production
+    
+                // PayPal Client IDs - replace with your own
+                // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+                client: {
+                    sandbox: 'AYiFUAFyJxc6aMmrnIj1Gjcb52UUWrdgmTD0QBlG5YMQ4YRooSWchT80Jrq1Rlw_sphJRZnbCMe0Lpc_',
+                    production: 'AdfIVpK5DykWsVuPy9q600QOSUjrknP5h20lYCUVVtzRt0wLUdMSkndUwTmahVdP8MGq9Wbw7s3jX0Ly'
+                },
+    
+                // Show the buyer a 'Pay Now' button in the checkout flow
+                commit: true,
+				style: {
+			 size: 'small',
+			 color: 'gold',
+			 shape: 'pill',
+			 label: 'checkout',
+			 tagline: 'false'
+				},
+    
+                // payment() is called when the button is clicked
+                payment: function (data, actions) {
+                    // Make a call to the REST api to create the payment
+                    return actions.payment.create({
+                        payment: {
+                            transactions: [
+                                {
+                                    amount: {total: AMOUNT, currency: CURRENCY}
+                                }
+                            ]
+                        }
+                    });
+                },
+    
+                // onAuthorize() is called when the buyer approves the payment
+                onAuthorize: function (data, actions) {
+                    // Make a call to the REST api to execute the payment
+                    return actions.payment.execute().then(function () {
+                        //console.log(data);
+						 savePayment(data.paymentID);
+                    });
+                }
+            }, '#paypal-button');
+			
+			//$( "#paypal-button" ).text("");
+   
+});
+			
+			
+						
+function savePayment(paymentID){
+	let d = new Date();
+	let time = d.getTime();
+    db.collection('payments').add({
+         userId:USER.uid,
+        amount: AMOUNT,
+		paymentID:paymentID,
+		currency:CURRENCY,
+        page: PAGE,
+		time:time
+        }).then(() => {
+            //window.alert('Payment Complete!');
+            window.location.replace("successful.html?amount="+AMOUNT+'&currency='+CURRENCY+'&paymentID='+paymentID);
+          }).catch(err => {
+                console.log(err.message);
+             });
+}
+
+			
+</script>
+</html>

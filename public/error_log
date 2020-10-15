@@ -1,0 +1,13 @@
+[20-Jul-2020 12:32:41 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\Api\StreamController::donate() in /home/y8t2elruseh3/livewave1/app/Http/Controllers/Api/StreamController.php on line 165
+[22-Jul-2020 10:47:17 UTC] PHP Fatal error:  Cannot declare class App\Http\Controllers\Api\NotificationController because the name is already in use in /home/y8t2elruseh3/livewave1/app/Http/Controllers/Api/NotificationController.php on line 10
+[22-Jul-2020 10:47:30 UTC] PHP Fatal error:  Cannot declare class App\Http\Controllers\Api\NotificationController because the name is already in use in /home/y8t2elruseh3/livewave1/app/Http/Controllers/Api/NotificationController.php on line 10
+[22-Jul-2020 11:30:16 UTC] PHP Fatal error:  Uncaught ErrorException: Array to string conversion in /home/y8t2elruseh3/livewave1/app/Http/Controllers/NotificationController.php:97
+Stack trace:
+#0 /home/y8t2elruseh3/livewave1/app/Http/Controllers/NotificationController.php(97): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Array to string...', '/home/y8t2elrus...', 97, Array)
+#1 /home/y8t2elruseh3/livewave1/app/Http/Controllers/Api/StreamController.php(189): App\Http\Controllers\NotificationController->sendToMultiple(Array, 'my', 'Talha Tahir you...')
+#2 [internal function]: App\Http\Controllers\Api\StreamController->start('29')
+#3 /home/y8t2elruseh3/livewave1/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(54): call_user_func_array(Array, Array)
+#4 /home/y8t2elruseh3/livewave1/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(45): Illuminate\Routing\Controller->callAction('start', Array)
+#5 /home/y8t2elruseh3/livewave1/vendor/laravel/framework/src/Illuminate/Routing/Route.php(219): Illuminate\Rou in /home/y8t2elruseh3/livewave1/app/Http/Controllers/NotificationController.php on line 97
+[29-Jul-2020 10:31:39 UTC] PHP Fatal error:  Cannot declare class App\Http\Controllers\Api\EventController, because the name is already in use in /home/y8t2elruseh3/livewave1/app/Event.php on line 181
+[29-Jul-2020 10:32:20 UTC] PHP Fatal error:  Cannot declare class App\Http\Controllers\Api\EventController, because the name is already in use in /home/y8t2elruseh3/livewave1/app/Event.php on line 181
